@@ -319,69 +319,27 @@
             }
         }
 
-       // Secret [f] Link Trigger
-function triggerSecret() {
-    // 1. Change browser tab title
-    document.title = "Alone.txt";
+// Secret [f] Link Trigger
+        function triggerSecret() {
+            // 1. Change browser tab title (page card name)
+            document.title = "Alone.txt";
 
-    // 2. Clear entire body and replace with a pitch-black screen & mystery tree
-    document.body.style.backgroundColor = "#000000";
-    document.body.style.margin = "0";
-    document.body.style.display = "flex";
-    document.body.style.flexDirection = "column";
-    document.body.style.justifyContent = "center";
-    document.body.style.alignItems = "center";
-    document.body.style.height = "100vh";
-    document.body.style.overflow = "hidden";
+            // 2. Set background to pure pitch-black and center content
+            document.body.style.backgroundColor = "#000000";
+            document.body.style.margin = "0";
+            document.body.style.display = "flex";
+            document.body.style.justifyContent = "center";
+            document.body.style.alignItems = "center";
+            document.body.style.height = "100vh";
+            document.body.style.overflow = "hidden";
 
-    document.body.innerHTML = `
-        <div id="tree-container" style="text-align: center; cursor: pointer;">
-            <!-- Pixelated Tree SVG -->
-            <svg id="secret-tree" width="200" height="240" viewBox="0 0 200 240" style="image-rendering: pixelated; transition: transform 0.2s ease, filter 0.2s ease;">
-                <!-- Canopy -->
-                <polygon points="100,20 40,90 70,90 30,150 80,150 20,200 180,200 120,150 170,150 130,90 160,90" fill="#1a331e" />
-                <polygon points="100,35 55,90 80,90 45,150 90,150 40,190 160,190 110,150 155,150 120,90 145,90" fill="#24472a" />
-                <!-- Trunk -->
-                <rect x="85" y="200" width="30" height="40" fill="#3a2517" />
-            </svg>
-            <p id="tree-hint" style="color: #1a331e; font-family: monospace; font-size: 12px; margin-top: 20px; user-select: none;">
-                ...
-            </p>
-        </div>
-    `;
-
-    // 3. Set up the Easter Egg interaction logic
-    let clickCount = 0;
-    const tree = document.getElementById('secret-tree');
-    const hint = document.getElementById('tree-hint');
-
-    tree.addEventListener('click', () => {
-        clickCount++;
-
-        // Visual feedback when clicking the tree
-        tree.style.transform = "scale(0.95)";
-        setTimeout(() => tree.style.transform = "scale(1)", 100);
-
-        if (clickCount === 3) {
-            tree.style.filter = "brightness(1.5) sepia(1) hue-rotate(80deg)";
-            hint.innerText = "It feels warm.";
-            hint.style.color = "#38663f";
-        } else if (clickCount === 7) {
-            tree.style.filter = "brightness(0.5) drop-shadow(0 0 8px #ff0000)";
-            hint.innerText = "It's watching Sub-Level 4.";
-            hint.style.color = "#ff3333";
-        } else if (clickCount >= 10) {
-            hint.innerHTML = `<span style="color: #ff0000; font-weight: bold;">[LOG_404]: ENTITY_ROOTS_CONTAINMENT_FAILED</span>`;
-            
-            // Subtle glitch effect on the tree
-            setInterval(() => {
-                const x = (Math.random() - 0.5) * 6;
-                const y = (Math.random() - 0.5) * 6;
-                tree.style.transform = `translate(${x}px, ${y}px)`;
-            }, 50);
+            // 3. Replace entire page content with your custom image file
+            document.body.innerHTML = `
+                <div id="tree-container">
+                    <img id="secret-tree-img" src="TheTree.png" alt="Tree" style="max-width: 80vw; max-height: 80vh; image-rendering: pixelated; display: block; margin: 0 auto;">
+                </div>
+            `;
         }
-    });
-}
     </script>
 </body>
 </html>
