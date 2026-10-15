@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astralburst Bio-Kinetics | Internal Portal</title>
+    <style>
+        /* Retro 2000s Terminal & Corporate Styling */
+        body {
+            background-color: #0b0d10;
+            color: #12d452;
+            font-family: "Courier New", Courier, monospace;
+            margin: 0;
+            padding: 20px;
+            user-select: none;
+        }
+
+        /* Legal ARG Notice Banner */
+        #arg-notice {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 0, 0, 0.85);
+            color: #ffffff;
+            padding: 8px 16px;
+            border: 1px solid #ff5555;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 9999;
+            box-shadow: 0 0 10px rgba(0,0,0,0.8);
+            border-radius: 4px;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Section 1: Command Prompt Terminal */
+        #terminal-screen {
+            max-width: 650px;
+            margin: 80px auto;
+            border: 2px solid #12d452;
+            padding: 20px;
+            background-color: #050607;
+            box-shadow: 0 0 15px rgba(18, 212, 82, 0.2);
+        }
+
+        .prompt-line {
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .prompt-symbol {
+            margin-right: 10px;
+        }
+
+        input[type="text"] {
+            background: transparent;
+            border: none;
+            color: #12d452;
+            font-family: inherit;
+            font-size: 16px;
+            outline: none;
+            width: 100%;
+        }
+
+        #flash-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: #ffffff;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.1s ease-in-out;
+            z-index: 1000;
+        }
+
+        /* Section 2: Main 2000s Website */
+        #main-site {
+            display: none;
+            max-width: 850px;
+            margin: 0 auto;
+            background-color: #111418;
+            border: 3px double #3a4454;
+            padding: 25px;
+            color: #d1d5db;
+        }
+
+        .site-header {
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid #3a4454;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .site-header img {
+            width: 64px;
+            height: 64px;
+            margin-right: 20px;
+            image-rendering: pixelated;
+        }
+
+        .site-header h1 {
+            color: #e2e8f0;
+            font-size: 24px;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        /* Navigation Buttons */
+        .nav-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            background-color: #1a202c;
+            padding: 8px;
+            border: 1px solid #2d3748;
+        }
+
+        .nav-btn {
+            background-color: #2d3748;
+            color: #edf2f7;
+            border: 1px solid #4a5568;
+            padding: 8px 14px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 13px;
+        }
+
+        .nav-btn:hover {
+            background-color: #4a5568;
+        }
+
+        /* Articles Container */
+        .article-content {
+            background-color: #0b0d10;
+            border: 1px solid #2d3748;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        h2 {
+            color: #63b3ed;
+            border-bottom: 1px dashed #4a5568;
+            padding-bottom: 5px;
+        }
+
+        .redacted-block {
+            background-color: #000000;
+            color: #000000;
+            padding: 2px 8px;
+            border: 1px solid #333333;
+        }
+
+        /* Secret Blue Link */
+        .secret-link {
+            color: #0088ff;
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .secret-link:hover {
+            color: #55aaff;
+        }
+
+        .footer-text {
+            margin-top: 30px;
+            font-size: 11px;
+            color: #4a5568;
+            text-align: center;
+            border-top: 1px solid #1a202c;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Flash Overlay for Password Entry -->
+    <div id="flash-overlay"></div>
+
+    <!-- Legal ARG Warning Banner (Auto-fades after 2s) -->
+    <div id="arg-notice">
+        This site is an ARG for an upcoming game. Please, do NOT treat the company seriously.
+    </div>
+
+    <!-- Terminal Command Screen -->
+    <div id="terminal-screen">
+        <div class="prompt-line">AB-NET TERMINAL v2.04</div>
+        <div class="prompt-line">Please enter permission:</div>
+        <div class="input-container">
+            <span class="prompt-symbol">&gt;</span>
+            <input type="text" id="terminal-input" autofocus autocomplete="off" spellcheck="false">
+        </div>
+        <div id="terminal-msg" style="margin-top: 15px; color: #ff5555;"></div>
+    </div>
+
+    <!-- Main 2000s Corporate Site -->
+    <div id="main-site">
+        <div class="site-header">
+            <img src="logo.png" alt="Astralburst Logo">
+            <h1>Astralburst Bio-Kinetics</h1>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="nav-bar">
+            <button class="nav-btn" onclick="showArticle('about')">[ About Us ]</button>
+            <button class="nav-btn" onclick="showArticle('terminal')">[ Personnel-Only Terminal ]</button>
+            <button class="nav-btn" onclick="showArticle('info')">[ Personnel Information ]</button>
+            <button class="nav-btn" onclick="showArticle('facility')">[ Facility ]</button>
+        </div>
+
+        <!-- Content Area -->
+        <div class="article-content" id="article-box">
+            <!-- Default Content: About Us -->
+            <h2>About Us</h2>
+            <p><strong>Astralburst Bio-Kinetics</strong> is a facility that studies everything that nature and mechanics have to offer!</p>
+            <p>We provide safety equipment, anti-threat facility structure and anything that can let you feel free during your work hours. We also provide insurance for the personnel during their work period.</p>
+            
+            <h2>What does the facility do?</h2>
+            <p>Our facility can help <strong>YOU</strong> shape the future of this world, by inventing as much as the soul desires! From new life<span class="secret-link" onclick="triggerSecret()">f</span>orms, to new technology, and much more! Design robots, experiment with plants, look how they react!</p>
+            
+            <p>The personnel is divided into 9 sections:</p>
+            <ul>
+                <li>Technician</li>
+                <li>Scientist</li>
+                <li>Biologist</li>
+                <li>Botanist</li>
+                <li>Designer</li>
+                <li>Electronics technician</li>
+                <li><span class="redacted-block">REDACTED_SECTION_07</span></li>
+                <li>Management</li>
+                <li>Executive</li>
+            </ul>
+
+            <br>
+            <p><strong>Sub-Surface Expansion Notice:</strong> Facility expansion into Sub-Level 4 remains strictly ongoing. Construction teams are advised to adhere to atmospheric isolation procedures at all times. Operational safety is our highest priority.</p>
+        </div>
+
+        <div class="footer-text">
+            &copy; 2004 Astralburst Bio-Kinetics Directorate. All rights reserved. AB-NET Intranet node 10.42.0.1
+        </div>
+    </div>
+
+    <script>
+        // Auto-fade the legal ARG notice banner after 2 seconds
+        setTimeout(() => {
+            const notice = document.getElementById('arg-notice');
+            notice.style.opacity = '0';
+            setTimeout(() => notice.style.display = 'none', 500);
+        }, 2000);
+
+        // Terminal Password Verification
+        const termInput = document.getElementById('terminal-input');
+        const termMsg = document.getElementById('terminal-msg');
+        const flash = document.getElementById('flash-overlay');
+
+        termInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const val = termInput.value;
+                if (val === 'Astral') {
+                    termMsg.style.color = '#12d452';
+                    termMsg.innerText = 'Welcome.';
+                    
+                    // Trigger screen flash and switch views
+                    setTimeout(() => {
+                        flash.style.opacity = '1';
+                        setTimeout(() => {
+                            document.getElementById('terminal-screen').style.display = 'none';
+                            document.getElementById('main-site').style.display = 'block';
+                            flash.style.opacity = '0';
+                        }, 150);
+                    }, 400);
+                } else {
+                    termMsg.style.color = '#ff5555';
+                    termMsg.innerText = 'ACCESS DENIED: Invalid Permission Key.';
+                    termInput.value = '';
+                }
+            }
+        });
+
+        // Navigation Article Loader
+        function showArticle(type) {
+            const box = document.getElementById('article-box');
+            if (type === 'about') {
+                box.innerHTML = `
+                    <h2>About Us</h2>
+                    <p><strong>Astralburst Bio-Kinetics</strong> is a facility that studies everything that nature and mechanics have to offer!</p>
+                    <p>We provide safety equipment, anti-threat facility structure and anything that can let you feel free during your work hours. We also provide insurance for the personnel during their work period.</p>
+                    
+                    <h2>What does the facility do?</h2>
+                    <p>Our facility can help <strong>YOU</strong> shape the future of this world, by inventing as much as the soul desires! From new life<span class="secret-link" onclick="triggerSecret()">f</span>orms, to new technology, and much more! Design robots, experiment with plants, look how they react!</p>
+                    
+                    <p>The personnel is divided into 9 sections:</p>
+                    <ul>
+                        <li>Technician</li>
+                        <li>Scientist</li>
+                        <li>Biologist</li>
+                        <li>Botanist</li>
+                        <li>Designer</li>
+                        <li>Electronics technician</li>
+                        <li><span class="redacted-block">REDACTED_SECTION_07</span></li>
+                        <li>Management</li>
+                        <li>Executive</li>
+                    </ul>
+
+                    <br>
+                    <p><strong>Sub-Surface Expansion Notice:</strong> Facility expansion into Sub-Level 4 remains strictly ongoing. Construction teams are advised to adhere to atmospheric isolation procedures at all times. Operational safety is our highest priority.</p>
+                `;
+            } else {
+                box.innerHTML = `
+                    <h2>[ Access Restricted ]</h2>
+                    <p style="color: #ffaa00; font-size: 18px; font-weight: bold;">Coming Soon</p>
+                    <p>This network node is currently undergoing maintenance or requires elevated security clearance.</p>
+                `;
+            }
+        }
+
+        // Secret [f] Link Trigger
+        function triggerSecret() {
+            alert("LOG_ENTRY_009: 'The plants don't react to water anymore. They react to light.'");
+        }
+    </script>
+</body>
+</html>
